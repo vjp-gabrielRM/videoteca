@@ -1,0 +1,1 @@
+daniel es un puto negro
