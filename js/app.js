@@ -1,7 +1,7 @@
 const NOMBRE_APP = "Videoteca";
-const ANIO_CORTE = 2010;
+const AÑO = 2010;
 
-const elementos = [
+const Coleccion = [
   {
     id: 1,
     titulo: "La última estación",
@@ -31,7 +31,7 @@ const elementos = [
     titulo: "Puerto de niebla",
     genero: "Misterio",
     fechaLanzamiento: "2019-11-14",
-    sinopsis: "Una inspectora investiga la desaparición de un barco en una tranquila ciudad costera.",
+    sinopsis: "Una inspectora investiga la desaparición de un barco en una ciudad costera.",
     tipo: "Serie",
   },
   {
@@ -47,7 +47,7 @@ const elementos = [
     titulo: "Turno de noche",
     genero: "Drama",
     fechaLanzamiento: "2022-01-28",
-    sinopsis: "El personal de urgencias de un hospital afronta cada noche nuevos retos personales.",
+    sinopsis: "El personal de urgencias de un hospital afronta nuevos retos en cada turno.",
     tipo: "Serie",
   },
   {
@@ -63,19 +63,19 @@ const elementos = [
     titulo: "Mapa de estrellas",
     genero: "Aventura",
     fechaLanzamiento: "2007-02-06",
-    sinopsis: "Un grupo de estudiantes sigue un mapa antiguo para encontrar un observatorio abandonado.",
+    sinopsis: "Un grupo de estudiantes sigue un mapa antiguo hasta un observatorio abandonado.",
     tipo: "Serie",
   },
 ];
 
-console.log(`${NOMBRE_APP}: ${elementos.length} elementos cargados`);
-console.table(elementos);
+console.log(`${NOMBRE_APP}: ${Coleccion.length} elementos cargados`);
+console.table();
 
 console.log(`Listado de ${NOMBRE_APP}:`);
-for (const elemento of elementos) {
-  const anioLanzamiento = Number(elemento.fechaLanzamiento.slice(0, 4));
-  const etiqueta = anioLanzamiento >= ANIO_CORTE ? "reciente" : "clásica";
+for (const Coleccion of Coleccion) {
+  const añoLanzamiento = Number(Coleccion.fechaLanzamiento.slice(0, 4));
+  const etiqueta = añoLanzamiento >= AÑO ? "reciente" : "clásica";
   console.log(
-    `${elemento.titulo} (${elemento.tipo}, ${elemento.fechaLanzamiento}) — ${etiqueta}`,
+    `${Coleccion.titulo} (${Coleccion.tipo}, ${Coleccion.fechaLanzamiento}) — ${etiqueta}`,
   );
 }
