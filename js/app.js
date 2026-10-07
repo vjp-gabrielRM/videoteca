@@ -71,9 +71,9 @@ const articulos = [
 console.log(`${NOMBRE_APP}: ${articulos.length} elementos cargados`);
 console.table(articulos);
 
-function listarTodos(lista) {
+function listarTodos(articulos) {
   console.log(`Listado de ${NOMBRE_APP}:`);
-  for (const articulo of lista) {
+  for (const articulo of articulos) {
     const añoLanzamiento = Number(articulo.fechaLanzamiento.slice(0, 4));
     const etiqueta = añoLanzamiento >= AÑO ? "reciente" : "clásica";
     console.log(
@@ -82,13 +82,13 @@ function listarTodos(lista) {
   }
 }
 
-const filtrarPeliculasDesdeAnio = (lista, anioLimite = AÑO) => {
-  console.log(`Películas estrenadas desde ${anioLimite}:`);
+const filtrarPeliculasDesdeAnio = (articulos, añoLimite = AÑO) => {
+  console.log(`Películas estrenadas desde ${añoLimite}:`);
   let encontradas = 0;
 
-  for (const articulo of lista) {
+  for (const articulo of articulos) {
     const añoLanzamiento = Number(articulo.fechaLanzamiento.slice(0, 4));
-    if (articulo.tipo === "Película" && añoLanzamiento >= anioLimite) {
+    if (articulo.tipo === "Película" && añoLanzamiento >= añoLimite) {
       console.log(`${articulo.titulo} (${articulo.fechaLanzamiento})`);
       encontradas++;
     }
@@ -97,11 +97,11 @@ const filtrarPeliculasDesdeAnio = (lista, anioLimite = AÑO) => {
   return encontradas;
 };
 
-function contarPorTipo(lista) {
+function contarPorTipo(articulos) {
   let series = 0;
   let peliculas = 0;
 
-  for (const articulo of lista) {
+  for (const articulo of articulos) {
     switch (articulo.tipo) {
       case "Serie":
         series++;
