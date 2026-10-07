@@ -69,23 +69,65 @@ const articulos = [
 ];
 
 console.log(`${NOMBRE_APP}: ${articulos.length} elementos cargados`);
-console.table();
+console.table(articulos);
 
-console.log(`Listado de ${NOMBRE_APP}:`);
-for (const articulo of articulos) {
-  const añoLanzamiento = Number(articulo.fechaLanzamiento.slice(0, 4));
-  const etiqueta = añoLanzamiento >= AÑO ? "reciente" : "clásica";
-  console.log(
-    `${articulo.titulo} (${articulo.tipo}, ${articulo.fechaLanzamiento}) — ${etiqueta}`);
+function listarTodos(lista) {
+  console.log(`Listado de ${NOMBRE_APP}:`);
+  for (const articulo of lista) {
+    const añoLanzamiento = Number(articulo.fechaLanzamiento.slice(0, 4));
+    const etiqueta = añoLanzamiento >= AÑO ? "reciente" : "clásica";
+    console.log(
+      `${articulo.titulo} (${articulo.tipo}, ${articulo.fechaLanzamiento}) — ${etiqueta}`,
+    );
+  }
 }
 
-console.log(`Listado de películas de aventura`);
-for(let i = 0; i < articulos.length; i++){
-    let articulo = articulos[i];
-    if(articulo.tipo == "Película" || articulo.genero == "Aventura"){
-       const añoLanzamiento = Number(articulo.fechaLanzamiento.slice(0, 4));
-        const etiqueta = añoLanzamiento >= AÑO ? "reciente" : "clásica";
-        console.log(
-        `${articulo.titulo} (${articulo.tipo}, ${articulo.fechaLanzamiento}) — ${etiqueta}`); 
+const filtrarPeliculasDesdeAnio = (lista, anioLimite = AÑO) => {
+  console.log(`Películas estrenadas desde ${anioLimite}:`);
+  let encontradas = 0;
+
+  for (const articulo of lista) {
+    const añoLanzamiento = Number(articulo.fechaLanzamiento.slice(0, 4));
+    if (articulo.tipo === "Película" && añoLanzamiento >= anioLimite) {
+      console.log(`${articulo.titulo} (${articulo.fechaLanzamiento})`);
+      encontradas++;
     }
+  }
+
+  return encontradas;
+};
+
+function contarPorTipo(lista) {
+  let series = 0;
+  let peliculas = 0;
+
+  for (const articulo of lista) {
+    switch (articulo.tipo) {
+      case "Serie":
+        series++;
+        break;
+      case "Película":
+        peliculas++;
+        break;
+      default:
+        console.warn(`Tipo inesperado en el artículo ${articulo.id}: ${articulo.tipo}`);
+    }
+  }
+
+  console.log(`Series: ${series}`);
+  console.log(`Películas: ${peliculas}`);
 }
+
+listarTodos(articulos);
+
+const peliculasDesde2010 = filtrarPeliculasDesdeAnio(articulos, 2010);
+console.log(`Encontradas desde 2010: ${peliculasDesde2010}`);
+
+const peliculasDesde2015 = filtrarPeliculasDesdeAnio(articulos, 2015);
+console.log(`Encontradas desde 2015: ${peliculasDesde2015}`);
+
+console.log("Filtro usando el año por defecto:");
+const peliculasDesdeAnioPorDefecto = filtrarPeliculasDesdeAnio(articulos);
+console.log(`Encontradas con el límite por defecto: ${peliculasDesdeAnioPorDefecto}`);
+
+contarPorTipo(articulos);
