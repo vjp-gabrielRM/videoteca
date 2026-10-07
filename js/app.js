@@ -76,6 +76,16 @@ for (const articulo of articulos) {
   const añoLanzamiento = Number(articulo.fechaLanzamiento.slice(0, 4));
   const etiqueta = añoLanzamiento >= AÑO ? "reciente" : "clásica";
   console.log(
-    `${articulo.titulo} (${articulo.tipo}, ${articulo.fechaLanzamiento}) — ${etiqueta}`,
-  );
+    `${articulo.titulo} (${articulo.tipo}, ${articulo.fechaLanzamiento}) — ${etiqueta}`);
+}
+
+console.log(`Listado de películas de aventura`);
+for(let i = 0; i < articulos.length; i++){
+    let articulo = articulos[i];
+    if(articulo.tipo == "Película" || articulo.genero == "Aventura"){
+       const añoLanzamiento = Number(articulo.fechaLanzamiento.slice(0, 4));
+        const etiqueta = añoLanzamiento >= AÑO ? "reciente" : "clásica";
+        console.log(
+        `${articulo.titulo} (${articulo.tipo}, ${articulo.fechaLanzamiento}) — ${etiqueta}`); 
+    }
 }
