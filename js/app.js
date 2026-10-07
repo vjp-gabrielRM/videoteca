@@ -71,6 +71,7 @@ const articulos = [
 console.log(`${NOMBRE_APP}: ${articulos.length} elementos cargados`);
 console.table(articulos);
 
+// Muestra todas las series y películas con su etiqueta.
 function listarTodos(articulos) {
   console.log(`Listado de ${NOMBRE_APP}:`);
   for (const articulo of articulos) {
@@ -82,7 +83,8 @@ function listarTodos(articulos) {
   }
 }
 
-const filtrarPeliculasDesdeAnio = (articulos, añoLimite = AÑO) => {
+// Busca películas estrenadas desde el año indicado.
+const filtrarPeliculasDesdeAño = (articulos, añoLimite = AÑO) => {
   console.log(`Películas estrenadas desde ${añoLimite}:`);
   let encontradas = 0;
 
@@ -96,7 +98,7 @@ const filtrarPeliculasDesdeAnio = (articulos, añoLimite = AÑO) => {
 
   return encontradas;
 };
-
+// Cuenta cuántas series y películas hay en la colección.
 function contarPorTipo(articulos) {
   let series = 0;
   let peliculas = 0;
@@ -110,7 +112,7 @@ function contarPorTipo(articulos) {
         peliculas++;
         break;
       default:
-        console.warn(`Tipo inesperado en el artículo ${articulo.id}: ${articulo.tipo}`);
+        console.warn(`error inesperado`);
     }
   }
 
@@ -120,14 +122,14 @@ function contarPorTipo(articulos) {
 
 listarTodos(articulos);
 
-const peliculasDesde2010 = filtrarPeliculasDesdeAnio(articulos, 2010);
+const peliculasDesde2010 = filtrarPeliculasDesdeAño(articulos, 2010);
 console.log(`Encontradas desde 2010: ${peliculasDesde2010}`);
 
-const peliculasDesde2015 = filtrarPeliculasDesdeAnio(articulos, 2015);
+const peliculasDesde2015 = filtrarPeliculasDesdeAño(articulos, 2015);
 console.log(`Encontradas desde 2015: ${peliculasDesde2015}`);
 
 console.log("Filtro usando el año por defecto:");
-const peliculasDesdeAnioPorDefecto = filtrarPeliculasDesdeAnio(articulos);
-console.log(`Encontradas con el límite por defecto: ${peliculasDesdeAnioPorDefecto}`);
+const peliculasDesdeAñoPorDefecto = filtrarPeliculasDesdeAño(articulos);
+console.log(`Encontradas con el límite por defecto: ${peliculasDesdeAñoPorDefecto}`);
 
 contarPorTipo(articulos);
