@@ -1,7 +1,7 @@
 const NOMBRE_APP = "Videoteca";
 const AÑO = 2010;
 
-const Coleccion = [
+const articulos = [
   {
     id: 1,
     titulo: "La última estación",
@@ -68,14 +68,14 @@ const Coleccion = [
   },
 ];
 
-console.log(`${NOMBRE_APP}: ${Coleccion.length} elementos cargados`);
+console.log(`${NOMBRE_APP}: ${articulos.length} elementos cargados`);
 console.table();
 
 console.log(`Listado de ${NOMBRE_APP}:`);
-for (const Coleccion of Coleccion) {
-  const añoLanzamiento = Number(Coleccion.fechaLanzamiento.slice(0, 4));
+for (const articulo of articulos) {
+  const añoLanzamiento = Number(articulo.fechaLanzamiento.slice(0, 4));
   const etiqueta = añoLanzamiento >= AÑO ? "reciente" : "clásica";
   console.log(
-    `${Coleccion.titulo} (${Coleccion.tipo}, ${Coleccion.fechaLanzamiento}) — ${etiqueta}`,
+    `${articulo.titulo} (${articulo.tipo}, ${articulo.fechaLanzamiento}) — ${etiqueta}`,
   );
 }
