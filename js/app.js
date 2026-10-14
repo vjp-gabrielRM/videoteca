@@ -84,7 +84,7 @@ function listarTodos(articulos) {
 }
 
 // Busca películas estrenadas desde el año indicado.
-const filtrarPeliculasDesdeAño = (articulos, añoLimite = AÑO) => {
+const filtrarPeliculasDesdeAño = (articulos, añoLimite) => {
   console.log(`Películas estrenadas desde ${añoLimite}:`);
   let encontradas = 0;
 
@@ -133,3 +133,44 @@ const peliculasDesdeAñoPorDefecto = filtrarPeliculasDesdeAño(articulos);
 console.log(`Encontradas con el límite por defecto: ${peliculasDesdeAñoPorDefecto}`);
 
 contarPorTipo(articulos);
+
+
+
+
+const IVA = 0.21; 
+let mensaje = "Envío: 5 €"; 
+
+
+
+function calcularTotal (precios) { 
+
+let total = 0; 
+for (let i = 0; i < precios.length; i++) { 
+
+total += precios[i]; 
+const ultimo = precios[precios.length - 1]; 
+if (total >= 100) { 
+} 
+let envio = "Envío gratis"; 
+return total * (1 + IVA); 
+}
+function mostrarResumen (precios) { 
+
+const total = calcularTotal(precios); 
+console.log(`Total con IVA: ${total.toFixed(2)} €`); 
+console.log(envio); 
+console.log(`Último producto: ${ultimo} €`); 
+mostrarResumen ([40, 35, 30]); 
+}
+}
+
+
+
+function listar(articulos){
+  for(i = 0; i<8; i++){
+    console.log(articulos.id, articulos.titulo, articulos.genero, )
+  }
+
+}
+
+listar();
