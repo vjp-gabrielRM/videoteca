@@ -160,8 +160,8 @@ mostrarResumen ([40, 35, 30]);
 }
 
 function listar(articulos){
-  for(i = 0; i<8; i++){
-    console.log(articulos.id, articulos.titulo, articulos.genero, )
+  for(let elemento of articulos){
+    console.log(elemento.id, elemento.titulo, elemento.genero, )
   }
 
 }
@@ -181,4 +181,4 @@ function buscarPorTexto(lista, texto) {
 
    let texto = prompt("titulo de la serie/pelicula?");
 
-   buscarPorTexto(articulos, texto);
+   console.table(buscarPorTexto(articulos, texto));
