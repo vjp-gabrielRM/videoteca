@@ -182,3 +182,21 @@ function buscarPorTexto(lista, texto) {
    let texto = prompt("titulo de la serie/pelicula?");
 
    console.table(buscarPorTexto(articulos, texto));
+
+function anadir(articulos, elemento){
+  let id = articulos.length + 1;
+  elemento.id = id;
+  articulos.push(elemento);
+}
+
+let elementoPrueba = {
+  titulo: "Prueba",
+    genero: "Aventura",
+    fechaLanzamiento: "2010-01-01",
+    sinopsis: "Ejemplo",
+    tipo: "Serie",
+}
+
+anadir(articulos, elementoPrueba);
+
+listar(articulos);
