@@ -174,3 +174,19 @@ function listar(articulos){
 }
 
 listar();
+
+
+function buscarPorTexto(lista, texto) {
+  let buscado = texto.toLowerCase();
+  const resultado = [];
+  for (const elemento of lista) {
+    if (elemento.titulo.toLowerCase().includes(buscado)) {
+      resultado.push(elemento);
+    }
+  }
+  return resultado;
+}
+
+   let texto = prompt("titulo de la serie/pelicula?");
+
+   buscarPorTexto(texto);
