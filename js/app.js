@@ -134,13 +134,8 @@ console.log(`Encontradas con el límite por defecto: ${peliculasDesdeAñoPorDefe
 
 contarPorTipo(articulos);
 
-
-
-
 const IVA = 0.21; 
 let mensaje = "Envío: 5 €"; 
-
-
 
 function calcularTotal (precios) { 
 
@@ -164,8 +159,6 @@ mostrarResumen ([40, 35, 30]);
 }
 }
 
-
-
 function listar(articulos){
   for(i = 0; i<8; i++){
     console.log(articulos.id, articulos.titulo, articulos.genero, )
@@ -173,8 +166,7 @@ function listar(articulos){
 
 }
 
-listar();
-
+listar(articulos);
 
 function buscarPorTexto(lista, texto) {
   let buscado = texto.toLowerCase();
@@ -189,4 +181,4 @@ function buscarPorTexto(lista, texto) {
 
    let texto = prompt("titulo de la serie/pelicula?");
 
-   buscarPorTexto(texto);
+   buscarPorTexto(articulos, texto);
