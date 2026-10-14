@@ -179,24 +179,9 @@ function buscarPorTexto(lista, texto) {
   return resultado;
 }
 
-   let texto = prompt("titulo de la serie/pelicula?");
+  let texto = prompt("titulo de la serie/pelicula?");
 
-   console.table(buscarPorTexto(articulos, texto));
-
-
-   function eliminarPorId(articulos, id) {
-  for (let i = 0; i < lista.length; i++) {
-    if (articulos[i].id === id) {
-      lista.splice(i, 1);
-      return true;
-    }
-  }
-  return false;
-}
-
- let id = Number(prompt("id  que desea eliminar"));
-
- listar(articulos);
+  console.table(buscarPorTexto(articulos, texto));
 
 function anadir(articulos, elemento){
   let id = articulos.length + 1;
@@ -213,5 +198,19 @@ let elementoPrueba = {
 }
 
 anadir(articulos, elementoPrueba);
+
+listar(articulos);
+
+function eliminarPorId(articulos, id) {
+  for (let i = 0; i < lista.length; i++) {
+    if (articulos[i].id === id) {
+      lista.splice(i, 1);
+      return true;
+    }
+  }
+  return false;
+}
+
+let id = Number(prompt("id  que desea eliminar"));
 
 listar(articulos);
