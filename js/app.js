@@ -84,7 +84,7 @@ function listarTodos(articulos) {
 }
 
 // Busca películas estrenadas desde el año indicado.
-const filtrarPeliculasDesdeAño = (articulos, añoLimite) => {
+const filtrarPeliculasDesdeAño = (articulos, añoLimite = 2010) => {
   console.log(`Películas estrenadas desde ${añoLimite}:`);
   let encontradas = 0;
 
@@ -134,36 +134,32 @@ console.log(`Encontradas con el límite por defecto: ${peliculasDesdeAñoPorDefe
 
 contarPorTipo(articulos);
 
-const IVA = 0.21; 
-let mensaje = "Envío: 5 €"; 
+const IVA = 0.21;
+let mensaje = "Envío: 5 €";
 
-function calcularTotal (precios) { 
-
-let total = 0; 
-for (let i = 0; i < precios.length; i++) { 
-
-total += precios[i]; 
-const ultimo = precios[precios.length - 1]; 
-if (total >= 100) { 
-} 
-let envio = "Envío gratis"; 
-return total * (1 + IVA); 
-}
-function mostrarResumen (precios) { 
-
-const total = calcularTotal(precios); 
-console.log(`Total con IVA: ${total.toFixed(2)} €`); 
-console.log(envio); 
-console.log(`Último producto: ${ultimo} €`); 
-mostrarResumen ([40, 35, 30]); 
-}
-}
-
-function listar(articulos){
-  for(let elemento of articulos){
-    console.log(elemento.id, elemento.titulo, elemento.genero, )
+function calcularTotal(precios) {
+  let total = 0;
+  for (let i = 0; i < precios.length; i++) {
+    total += precios[i];
   }
+  return total * (1 + IVA);
+}
 
+function mostrarResumen(precios) {
+  const total = calcularTotal(precios);
+  const ultimo = precios[precios.length - 1];
+  const envio = total >= 100 ? "Envío gratis" : mensaje;
+  console.log(`Total con IVA: ${total.toFixed(2)} €`);
+  console.log(envio);
+  console.log(`Último producto: ${ultimo} €`);
+}
+
+mostrarResumen([40, 35, 30]);
+
+function listar(articulos) {
+  for (let elemento of articulos) {
+    console.log(elemento.id, elemento.titulo, elemento.genero);
+  }
 }
 
 listar(articulos);
@@ -179,38 +175,46 @@ function buscarPorTexto(lista, texto) {
   return resultado;
 }
 
-  let texto = prompt("titulo de la serie/pelicula?");
+const texto = typeof prompt === "function" ? prompt("titulo de la serie/pelicula?") : "boreal";
 
-  console.table(buscarPorTexto(articulos, texto));
+console.table(buscarPorTexto(articulos, texto));
 
-function anadir(articulos, elemento){
-  let id = articulos.length + 1;
-  elemento.id = id;
+function anadir(articulos, elemento) {
+  let id = 0;
+  for (const articulo of articulos) {
+    if (articulo.id > id) {
+      id = articulo.id;
+    }
+  }
+  elemento.id = id + 1;
   articulos.push(elemento);
+  return elemento.id;
 }
 
 let elementoPrueba = {
   titulo: "Prueba",
-    genero: "Aventura",
-    fechaLanzamiento: "2010-01-01",
-    sinopsis: "Ejemplo",
-    tipo: "Serie",
-}
+  genero: "Aventura",
+  fechaLanzamiento: "2010-01-01",
+  sinopsis: "Ejemplo",
+  tipo: "Serie",
+};
 
 anadir(articulos, elementoPrueba);
 
 listar(articulos);
 
 function eliminarPorId(articulos, id) {
-  for (let i = 0; i < lista.length; i++) {
+  for (let i = 0; i < articulos.length; i++) {
     if (articulos[i].id === id) {
-      lista.splice(i, 1);
+      articulos.splice(i, 1);
       return true;
     }
   }
   return false;
 }
 
-let id = Number(prompt("id  que desea eliminar"));
+const idParaEliminar = typeof prompt === "function" ? Number(prompt("id  que desea eliminar")) : 3;
 
+console.log(`Se ha intentado eliminar el id ${idParaEliminar}`);
+console.log(`Resultado de eliminación: ${eliminarPorId(articulos, idParaEliminar)}`);
 listar(articulos);
