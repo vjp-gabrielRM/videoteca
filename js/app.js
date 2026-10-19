@@ -1,6 +1,7 @@
 const NOMBRE_APP = "Videoteca";
 const AÑO = 2010;
 
+// Catálogo inicial de películas y series.
 const articulos = [
   {
     id: 1,
@@ -9,6 +10,7 @@ const articulos = [
     fechaLanzamiento: "2023-03-17",
     sinopsis: "Una restauradora vuelve a su pueblo para recuperar el antiguo cine familiar.",
     tipo: "Película",
+    duracion: 112,
   },
   {
     id: 2,
@@ -17,6 +19,7 @@ const articulos = [
     fechaLanzamiento: "2021-09-08",
     sinopsis: "La tripulación de una estación polar investiga una señal que llega bajo el hielo.",
     tipo: "Serie",
+    duracion: 48,
   },
   {
     id: 3,
@@ -25,6 +28,7 @@ const articulos = [
     fechaLanzamiento: "2008-05-22",
     sinopsis: "Dos amigos intentan salvar la pequeña librería en la que crecieron.",
     tipo: "Película",
+    duracion: 96,
   },
   {
     id: 4,
@@ -33,6 +37,7 @@ const articulos = [
     fechaLanzamiento: "2019-11-14",
     sinopsis: "Una inspectora investiga la desaparición de un barco en una ciudad costera.",
     tipo: "Serie",
+    duracion: 52,
   },
   {
     id: 5,
@@ -41,6 +46,7 @@ const articulos = [
     fechaLanzamiento: "2004-07-02",
     sinopsis: "Tres hermanos emprenden un viaje por carretera para cumplir una promesa familiar.",
     tipo: "Película",
+    duracion: 105,
   },
   {
     id: 6,
@@ -49,6 +55,7 @@ const articulos = [
     fechaLanzamiento: "2022-01-28",
     sinopsis: "El personal de urgencias de un hospital afronta nuevos retos en cada turno.",
     tipo: "Serie",
+    duracion: 45,
   },
   {
     id: 7,
@@ -57,6 +64,7 @@ const articulos = [
     fechaLanzamiento: "2012-10-19",
     sinopsis: "Una joven descubre un jardín oculto que solo aparece cuando sube la marea.",
     tipo: "Película",
+    duracion: 118,
   },
   {
     id: 8,
@@ -65,13 +73,14 @@ const articulos = [
     fechaLanzamiento: "2007-02-06",
     sinopsis: "Un grupo de estudiantes sigue un mapa antiguo hasta un observatorio abandonado.",
     tipo: "Serie",
+    duracion: 50,
   },
 ];
 
 console.log(`${NOMBRE_APP}: ${articulos.length} elementos cargados`);
 console.table(articulos);
 
-// Muestra todas las series y películas con su etiqueta.
+// Muestra cada título e indica si es reciente o clásico.
 function listarTodos(articulos) {
   console.log(`Listado de ${NOMBRE_APP}:`);
   for (const articulo of articulos) {
@@ -83,8 +92,8 @@ function listarTodos(articulos) {
   }
 }
 
-// Busca películas estrenadas desde el año indicado.
-const filtrarPeliculasDesdeAño = (articulos, añoLimite = 2010) => {
+// Muestra las películas desde un año y devuelve cuántas encontró.
+const filtrarPeliculasDesdeAño = (articulos, añoLimite = AÑO) => {
   console.log(`Películas estrenadas desde ${añoLimite}:`);
   let encontradas = 0;
 
@@ -98,7 +107,7 @@ const filtrarPeliculasDesdeAño = (articulos, añoLimite = 2010) => {
 
   return encontradas;
 };
-// Cuenta cuántas series y películas hay en la colección.
+// Cuenta las series y películas del catálogo.
 function contarPorTipo(articulos) {
   let series = 0;
   let peliculas = 0;
@@ -111,7 +120,7 @@ function contarPorTipo(articulos) {
       case "Película":
         peliculas++;
         break;
-      default:
+          default:
         console.warn(`error inesperado`);
     }
   }
@@ -120,6 +129,7 @@ function contarPorTipo(articulos) {
   console.log(`Películas: ${peliculas}`);
 }
 
+// Ejecuta los listados y filtros de ejemplo.
 listarTodos(articulos);
 
 const peliculasDesde2010 = filtrarPeliculasDesdeAño(articulos, 2010);
@@ -134,9 +144,11 @@ console.log(`Encontradas con el límite por defecto: ${peliculasDesdeAñoPorDefe
 
 contarPorTipo(articulos);
 
+// Impuesto y mensaje de envío usados para calcular el total.
 const IVA = 0.21;
-let mensaje = "Envío: 5 €";
+const mensaje = "Envío: 5 €";
 
+// Suma los precios y añade el IVA.
 function calcularTotal(precios) {
   let total = 0;
   for (let i = 0; i < precios.length; i++) {
@@ -145,6 +157,7 @@ function calcularTotal(precios) {
   return total * (1 + IVA);
 }
 
+// Muestra el total, el envío y el último precio.
 function mostrarResumen(precios) {
   const total = calcularTotal(precios);
   const ultimo = precios[precios.length - 1];
@@ -154,18 +167,21 @@ function mostrarResumen(precios) {
   console.log(`Último producto: ${ultimo} €`);
 }
 
+// Ejemplo de cálculo de compra.
 mostrarResumen([40, 35, 30]);
 
+// Muestra el ID, título y género de cada elemento.
 function listar(articulos) {
-  for (let elemento of articulos) {
+  for (const elemento of articulos) {
     console.log(elemento.id, elemento.titulo, elemento.genero);
   }
 }
 
 listar(articulos);
 
+// Devuelve los títulos que contienen el texto buscado.
 function buscarPorTexto(lista, texto) {
-  let buscado = texto.toLowerCase();
+  const buscado = texto.toLowerCase();
   const resultado = [];
   for (const elemento of lista) {
     if (elemento.titulo.toLowerCase().includes(buscado)) {
@@ -175,10 +191,12 @@ function buscarPorTexto(lista, texto) {
   return resultado;
 }
 
-const texto = typeof prompt === "function" ? prompt("titulo de la serie/pelicula?") : "boreal";
+// Pide un título; si no hay navegador, usa un ejemplo.
+const texto = typeof prompt === "function" ? prompt("Título de la serie o película:") : "boreal";
 
 console.table(buscarPorTexto(articulos, texto));
 
+// Añade un elemento con un ID nuevo y devuelve ese ID.
 function anadir(articulos, elemento) {
   let id = 0;
   for (const articulo of articulos) {
@@ -191,18 +209,21 @@ function anadir(articulos, elemento) {
   return elemento.id;
 }
 
-let elementoPrueba = {
+// Ejemplo de elemento nuevo.
+const elementoPrueba = {
   titulo: "Prueba",
   genero: "Aventura",
   fechaLanzamiento: "2010-01-01",
   sinopsis: "Ejemplo",
   tipo: "Serie",
+  duracion: 45,
 };
 
 anadir(articulos, elementoPrueba);
 
 listar(articulos);
 
+// Elimina el elemento que tenga el ID indicado.
 function eliminarPorId(articulos, id) {
   for (let i = 0; i < articulos.length; i++) {
     if (articulos[i].id === id) {
@@ -213,8 +234,33 @@ function eliminarPorId(articulos, id) {
   return false;
 }
 
-const idParaEliminar = typeof prompt === "function" ? Number(prompt("id  que desea eliminar")) : 3;
+// Cambia el número para elegir qué elemento eliminar.
+const idParaEliminar = 3;
 
 console.log(`Se ha intentado eliminar el id ${idParaEliminar}`);
 console.log(`Resultado de eliminación: ${eliminarPorId(articulos, idParaEliminar)}`);
 listar(articulos);
+
+// Calcula la duración total, la media y el elemento más largo.
+function estadisticas(lista) {
+  if (lista.length === 0) {
+    console.warn("No hay elementos en la videoteca");
+    return;
+  }
+  let totalMinutos = 0;
+  let masLarga = lista[0];
+  for (const articulo of lista) {
+    totalMinutos += articulo.duracion;
+    if (articulo.duracion > masLarga.duracion) {
+      masLarga = articulo;
+    }
+  }
+  const mediaMinutos = totalMinutos / lista.length;
+  console.log(`Total: ${totalMinutos} min`);
+  console.log(`Media: ${mediaMinutos.toFixed(1)} min`);
+  console.log(`Más larga: ${masLarga.titulo} (${masLarga.duracion} min)`);
+}
+
+// Ejemplos de estadísticas con elementos y con una lista vacía.
+estadisticas(articulos);
+estadisticas([]);

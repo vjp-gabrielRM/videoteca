@@ -1,9 +1,9 @@
 # Videoteca
 
-- **Tema:** Videoteca.
+
 - **Colección:** series y películas.
-- **Campos:** ID, título, género, fecha de lanzamiento, sinopsis y tipo (serie o película).
-- **Grupo:** En pareja (Grupo 4).
+- **Campos:** ID, título, género, fecha de lanzamiento, sinopsis, tipo (serie o película) y duración en minutos.
+- **Grupo:** En pareja: Gabriel Ruz Macias, Daniel Iglesias Ramos (Grupo 4).
 - **Nombre de la aplicación:** Videoteca.
 
 ## Qué hará la aplicación
