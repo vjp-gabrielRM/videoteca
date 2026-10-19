@@ -1,5 +1,6 @@
 const NOMBRE_APP = "Videoteca";
 const AÑO = 2010;
+const AÑO_FILTRO_2015 = 2015;
 
 // Catálogo inicial de películas y series.
 const articulos = [
@@ -120,7 +121,7 @@ function contarPorTipo(articulos) {
       case "Película":
         peliculas++;
         break;
-          default:
+      default:
         console.warn(`error inesperado`);
     }
   }
@@ -135,40 +136,14 @@ listarTodos(articulos);
 const peliculasDesde2010 = filtrarPeliculasDesdeAño(articulos, 2010);
 console.log(`Encontradas desde 2010: ${peliculasDesde2010}`);
 
-const peliculasDesde2015 = filtrarPeliculasDesdeAño(articulos, 2015);
-console.log(`Encontradas desde 2015: ${peliculasDesde2015}`);
+const peliculasDesde2015 = filtrarPeliculasDesdeAño(articulos, AÑO_FILTRO_2015);
+console.log(`Encontradas desde ${AÑO_FILTRO_2015}: ${peliculasDesde2015}`);
 
 console.log("Filtro usando el año por defecto:");
 const peliculasDesdeAñoPorDefecto = filtrarPeliculasDesdeAño(articulos);
 console.log(`Encontradas con el límite por defecto: ${peliculasDesdeAñoPorDefecto}`);
 
 contarPorTipo(articulos);
-
-// Impuesto y mensaje de envío usados para calcular el total.
-const IVA = 0.21;
-const mensaje = "Envío: 5 €";
-
-// Suma los precios y añade el IVA.
-function calcularTotal(precios) {
-  let total = 0;
-  for (let i = 0; i < precios.length; i++) {
-    total += precios[i];
-  }
-  return total * (1 + IVA);
-}
-
-// Muestra el total, el envío y el último precio.
-function mostrarResumen(precios) {
-  const total = calcularTotal(precios);
-  const ultimo = precios[precios.length - 1];
-  const envio = total >= 100 ? "Envío gratis" : mensaje;
-  console.log(`Total con IVA: ${total.toFixed(2)} €`);
-  console.log(envio);
-  console.log(`Último producto: ${ultimo} €`);
-}
-
-// Ejemplo de cálculo de compra.
-mostrarResumen([40, 35, 30]);
 
 // Muestra el ID, título y género de cada elemento.
 function listar(articulos) {
@@ -190,10 +165,8 @@ function buscarPorTexto(lista, texto) {
   }
   return resultado;
 }
-
-// Pide un título; si no hay navegador, usa un ejemplo.
-const texto = typeof prompt === "function" ? prompt("Título de la serie o película:") : "boreal";
-
+const texto = "boreal";
+console.log(`Resultados de la búsqueda "${texto}":`);
 console.table(buscarPorTexto(articulos, texto));
 
 // Añade un elemento con un ID nuevo y devuelve ese ID.
@@ -234,11 +207,8 @@ function eliminarPorId(articulos, id) {
   return false;
 }
 
-// Cambia el número para elegir qué elemento eliminar.
-const idParaEliminar = 3;
-
-console.log(`Se ha intentado eliminar el id ${idParaEliminar}`);
-console.log(`Resultado de eliminación: ${eliminarPorId(articulos, idParaEliminar)}`);
+// Cambia el 3 por el ID que quieras eliminar.
+console.log(eliminarPorId(articulos, 3));
 listar(articulos);
 
 // Calcula la duración total, la media y el elemento más largo.
