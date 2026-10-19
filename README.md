@@ -26,3 +26,9 @@ funciones también se pueden llamar desde esa consola.
 ## Trabajo en pareja
 
 Grupo 4: Gabriel Ruz Macias y Daniel Iglesias Ramos.
+
+La tarea de teclear se ha ido alternando cada día siendo el primero en hacerlo Daniel, el que no tecleaba se dedicaba a ayudar a pensar el código y a buscar fallos en y corregirlos en el mismo, de ahí los commits de los dos en el mismo día en algunas ocasiones, además de repartir el trabajo de finalizar el sprint 0 hoy, Daniel se ha ocupado del código y Gabriel de retocar el README.
+
+## Uso de IA
+
+Se ha usado el Copilot que trae Visual Studio Code para algunas partes del código que no sabíamos muy bien cómo hacer y para optimizar algunas cosas.
