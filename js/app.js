@@ -6,7 +6,7 @@ const AÑO_FILTRO_2015 = 2015;
 const articulos = [
   {
     id: 1,
-    titulo: "La última estación",
+    titulo: "La ultima estación",
     genero: "Drama",
     fechaLanzamiento: "2023-03-17",
     sinopsis: "Una restauradora vuelve a su pueblo para recuperar el antiguo cine familiar.",
@@ -15,7 +15,7 @@ const articulos = [
   },
   {
     id: 2,
-    titulo: "Código Boreal",
+    titulo: "Codigo Boreal",
     genero: "Ciencia ficción",
     fechaLanzamiento: "2021-09-08",
     sinopsis: "La tripulación de una estación polar investiga una señal que llega bajo el hielo.",
@@ -24,7 +24,7 @@ const articulos = [
   },
   {
     id: 3,
-    titulo: "Días de papel",
+    titulo: "Dias de papel",
     genero: "Comedia",
     fechaLanzamiento: "2008-05-22",
     sinopsis: "Dos amigos intentan salvar la pequeña librería en la que crecieron.",
@@ -42,7 +42,7 @@ const articulos = [
   },
   {
     id: 5,
-    titulo: "Kilómetro cero",
+    titulo: "Kilometro cero",
     genero: "Aventura",
     fechaLanzamiento: "2004-07-02",
     sinopsis: "Tres hermanos emprenden un viaje por carretera para cumplir una promesa familiar.",
@@ -192,9 +192,10 @@ const elementoPrueba = {
   duracion: 45,
 };
 
-anadir(articulos, elementoPrueba);
+const articulosPrueba = [...articulos];
+anadir(articulosPrueba, elementoPrueba);
 
-listar(articulos);
+listar(articulosPrueba);
 
 // Elimina el elemento que tenga el ID indicado.
 function eliminarPorId(articulos, id) {
@@ -208,8 +209,8 @@ function eliminarPorId(articulos, id) {
 }
 
 // Cambia el 3 por el ID que quieras eliminar.
-console.log(eliminarPorId(articulos, 3));
-listar(articulos);
+console.log(eliminarPorId(articulosPrueba, 3));
+listar(articulosPrueba);
 
 // Calcula la duración total, la media y el elemento más largo.
 function estadisticas(lista) {
@@ -234,3 +235,62 @@ function estadisticas(lista) {
 // Ejemplos de estadísticas con elementos y con una lista vacía.
 estadisticas(articulos);
 estadisticas([]);
+
+
+//Sprint 1
+
+//variables
+let textoBuscado = "";
+let criterio = "titulo";
+
+function ordenar(lista, criterio) {
+  const copia = [...lista];
+
+  if (criterio === "duracion") {
+    copia.sort((a, b) => a.duracion - b.duracion);
+  } else {
+    copia.sort((a, b) => a.titulo.localeCompare(b.titulo, "es"));
+  }
+
+  return copia;
+}
+
+function pintar(lista) {
+  const catalogo = document.querySelector("#catalogo");
+  catalogo.replaceChildren();
+
+  for (const articulo of lista) {
+    const ficha = document.createElement("article");
+    const titulo = document.createElement("h2");
+    const detalles = document.createElement("p");
+    const sinopsis = document.createElement("p");
+
+    titulo.textContent = articulo.titulo;
+    detalles.textContent = `${articulo.tipo} · ${articulo.genero} · ${articulo.fechaLanzamiento} · ${articulo.duracion} min`;
+    sinopsis.textContent = articulo.sinopsis;
+    ficha.append(titulo, detalles, sinopsis);
+    catalogo.append(ficha);
+  }
+}
+
+function actualizar() {
+  const encontrados = buscarPorTexto(articulos, textoBuscado);
+  pintar(ordenar(encontrados, criterio));
+}
+
+function buscar() {
+  textoBuscado = document.querySelector("#buscador").value;
+  actualizar();
+}
+
+document.querySelector("#buscador").addEventListener("input", buscar);
+document.querySelector("#ordenNombre").addEventListener("click", () => {
+  criterio = "titulo";
+  actualizar();
+});
+document.querySelector("#ordenNumero").addEventListener("click", () => {
+  criterio = "duracion";
+  actualizar();
+});
+
+actualizar();

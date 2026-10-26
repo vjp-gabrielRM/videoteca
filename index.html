@@ -1,14 +1,23 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Videoteca</title>
-    <script src="js/app.js" defer></script>
-  </head>
-  <body>
 
-      <h1>Videoteca</h1>
-    
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Videoteca</title>
+  <script src="js/app.js" defer></script>
+</head>
+
+<body>
+
+  <h1>Videoteca</h1>
+
+  <section class="controles">
+    <input id="buscador" type="search" placeholder="Buscar">
+    <button id="ordenNombre">Ordenar A-Z</button>
+    <button id="ordenNumero">Ordenar por tiempo</button>
+  </section>
+  <section id="catalogo" aria-live="polite"></section>
+</body>
+
 </html>
