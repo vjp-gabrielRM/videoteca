@@ -241,12 +241,12 @@ estadisticas([]);
 
 //variables
 let textoBuscado = "";
-let criterio = "titulo";
+let titulo = "titulo";
 
-function ordenar(lista, criterio) {
+function ordenar(lista, titulo) {
   const copia = [...lista];
 
-  if (criterio === "duracion") {
+  if (titulo === "duracion") {
     copia.sort((a, b) => a.duracion - b.duracion);
   } else {
     copia.sort((a, b) => a.titulo.localeCompare(b.titulo, "es"));
@@ -275,7 +275,7 @@ function pintar(lista) {
 
 function actualizar() {
   const encontrados = buscarPorTexto(articulos, textoBuscado);
-  pintar(ordenar(encontrados, criterio));
+  pintar(ordenar(encontrados, titulo));
 }
 
 function buscar() {
@@ -284,13 +284,7 @@ function buscar() {
 }
 
 document.querySelector("#buscador").addEventListener("input", buscar);
-document.querySelector("#ordenNombre").addEventListener("click", () => {
-  criterio = "titulo";
-  actualizar();
-});
-document.querySelector("#ordenNumero").addEventListener("click", () => {
-  criterio = "duracion";
-  actualizar();
-});
+document.querySelector("#ordenNombre").addEventListener("click", () => { titulo = "titulo"; actualizar(); });
+document.querySelector("#ordenNumero").addEventListener("click", () => {  titulo = "duracion"; actualizar(); });
 
 actualizar();
