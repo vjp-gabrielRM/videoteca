@@ -238,87 +238,110 @@ estadisticas(articulos);
 estadisticas([]);
 
 
-// Sprint 1 actualizado con funciones de fechas del Reto 2
+// Sprint 1
 
 let textoBuscado = "";
 let titulo = "titulo";
-let titulo = "titulo";
+
+function guardarCookie(nombre, valor, dias) {
+    const segundos = dias * 24 * 60 * 60;
+    const texto = encodeURIComponent(valor);
+    document.cookie = `${nombre}=${texto}; max-age=${segundos}; path=/`;
+}
+
+function leerCookie(nombre) {
+    const partes = document.cookie.split("; ");
+    for (const parte of partes) {
+        const [clave, valor] = parte.split("=");
+        if (clave === nombre) {
+            return decodeURIComponent(valor);
+        }
+    }
+    return null;
+}
 
 function crearFecha(texto) {
-  return new Date(texto + "T00:00");
+    return new Date(texto + "T00:00");
 }
 
 function fechaLegible(texto) {
-  return crearFecha(texto).toLocaleDateString("es-ES", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+    return crearFecha(texto).toLocaleDateString("es-ES", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    });
 }
 
 function diasDesde(texto) {
-  const MS_DIA = 24 * 60 * 60 * 1000;
-  const ms = Date.now() - crearFecha(texto).getTime();
-  return Math.floor(ms / MS_DIA);
+    const MS_DIA = 24 * 60 * 60 * 1000;
+    const ms = Date.now() - crearFecha(texto).getTime();
+    return Math.floor(ms / MS_DIA);
 }
 
 function ordenar(lista, titulo) {
-  const copia = [...lista];
+    const copia = [...lista];
 
-  if (titulo === "duracion") {
-  if (titulo === "duracion") {
-    copia.sort((a, b) => a.duracion - b.duracion);
-  } else if (titulo === "fecha") {
-    copia.sort((a, b) => crearFecha(b.fechaLanzamiento) - crearFecha(a.fechaLanzamiento));
-  } else {
-    copia.sort((a, b) => a.titulo.localeCompare(b.titulo, "es"));
-  }
+    if (titulo === "duracion") {
+        copia.sort((a, b) => a.duracion - b.duracion);
+    } else if (titulo === "fecha") {
+        copia.sort((a, b) => crearFecha(b.fechaLanzamiento) - crearFecha(a.fechaLanzamiento));
+    } else {
+        copia.sort((a, b) => a.titulo.localeCompare(b.titulo, "es"));
+    }
 
-  return copia;
+    return copia;
 }
 
 function pintar(lista) {
-  const catalogo = document.querySelector("#catalogo");
-  catalogo.replaceChildren();
+    const catalogo = document.querySelector("#catalogo");
+    catalogo.replaceChildren();
 
-  for (const articulo of lista) {
-    const ficha = document.createElement("article");
-    const tituloElemento = document.createElement("h2");
-    const detalles = document.createElement("p");
-    const sinopsis = document.createElement("p");
-    const fecha = document.createElement("p");
+    for (const articulo of lista) {
+        const ficha = document.createElement("article");
+        const tituloElemento = document.createElement("h2");
+        const detalles = document.createElement("p");
+        const sinopsis = document.createElement("p");
+        const fecha = document.createElement("p");
 
-    fecha.classList.add("fecha");
-    fecha.textContent = fechaLegible(articulo.fechaLanzamiento);
+        fecha.classList.add("fecha");
+        fecha.textContent = fechaLegible(articulo.fechaLanzamiento);
 
-    tituloElemento.textContent = articulo.titulo;
-    detalles.textContent = `${articulo.tipo} · ${articulo.genero} · ${articulo.duracion} min`;
-    sinopsis.textContent = articulo.sinopsis;
+        tituloElemento.textContent = articulo.titulo;
+        detalles.textContent = `${articulo.tipo} · ${articulo.genero} · ${articulo.duracion} min`;
+        sinopsis.textContent = articulo.sinopsis;
 
-    if (diasDesde(articulo.fechaLanzamiento) <= DIAS_RECIENTE) {
-      ficha.classList.add("reciente");
+        if (diasDesde(articulo.fechaLanzamiento) <= DIAS_RECIENTE) {
+            ficha.classList.add("reciente");
+        }
+
+        ficha.append(tituloElemento, detalles, sinopsis, fecha);
+        catalogo.append(ficha);
     }
-
-    ficha.append(tituloElemento, detalles, sinopsis, fecha);
-    catalogo.append(ficha);
-  }
 }
 
 function actualizar() {
-  const encontrados = buscarPorTexto(articulos, textoBuscado);
-  pintar(ordenar(encontrados, titulo));
-  pintar(ordenar(encontrados, titulo));
+    const encontrados = buscarPorTexto(articulos, textoBuscado);
+    pintar(ordenar(encontrados, titulo));
 }
 
 function buscar() {
-  textoBuscado = document.querySelector("#buscador").value;
-  actualizar();
+    textoBuscado = document.querySelector("#buscador").value;
+    actualizar();
+}
+
+function elegirOrden(nuevo) {
+    titulo = nuevo;
+    guardarCookie("orden", titulo, 30);
+    actualizar();
 }
 
 document.querySelector("#buscador").addEventListener("input", buscar);
-document.querySelector("#ordenNombre").addEventListener("click", () => { titulo = "titulo"; actualizar(); });
-document.querySelector("#ordenNumero").addEventListener("click", () => {  titulo = "duracion"; actualizar(); });
-document.querySelector("#ordenFecha").addEventListener("click", () => { titulo = "fecha"; actualizar(); });
+document.querySelector("#ordenNombre").addEventListener("click", () => elegirOrden("titulo"));
+document.querySelector("#ordenNumero").addEventListener("click", () => elegirOrden("duracion"));
+document.querySelector("#ordenFecha").addEventListener("click", () => elegirOrden("fecha"));
 
-actualizar()
+const ordenGuardado = leerCookie("orden");
+if (ordenGuardado === "titulo" || ordenGuardado === "duracion" || ordenGuardado === "fecha") {
+    titulo = ordenGuardado;
 }
+actualizar();
