@@ -1,6 +1,7 @@
 const NOMBRE_APP = "Videoteca";
 const AÑO = 2010;
 const AÑO_FILTRO_2015 = 2015;
+const DIAS_RECIENTE = 30; // Añadido para el Reto 2
 
 // Catálogo inicial de películas y series.
 const articulos = [
@@ -237,17 +238,36 @@ estadisticas(articulos);
 estadisticas([]);
 
 
-//Sprint 1
+// Sprint 1 actualizado con funciones de fechas del Reto 2
 
-//variables
 let textoBuscado = "";
-let criterio = "titulo";
+let titulo = "titulo";
 
-function ordenar(lista, criterio) {
+function crearFecha(texto) {
+  return new Date(texto + "T00:00");
+}
+
+function fechaLegible(texto) {
+  return crearFecha(texto).toLocaleDateString("es-ES", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+function diasDesde(texto) {
+  const MS_DIA = 24 * 60 * 60 * 1000;
+  const ms = Date.now() - crearFecha(texto).getTime();
+  return Math.floor(ms / MS_DIA);
+}
+
+function ordenar(lista, titulo) {
   const copia = [...lista];
 
-  if (criterio === "duracion") {
+  if (titulo === "duracion") {
     copia.sort((a, b) => a.duracion - b.duracion);
+  } else if (titulo === "fecha") {
+    copia.sort((a, b) => crearFecha(b.fechaLanzamiento) - crearFecha(a.fechaLanzamiento));
   } else {
     copia.sort((a, b) => a.titulo.localeCompare(b.titulo, "es"));
   }
@@ -261,21 +281,30 @@ function pintar(lista) {
 
   for (const articulo of lista) {
     const ficha = document.createElement("article");
-    const titulo = document.createElement("h2");
+    const tituloElemento = document.createElement("h2");
     const detalles = document.createElement("p");
     const sinopsis = document.createElement("p");
+    const fecha = document.createElement("p");
 
-    titulo.textContent = articulo.titulo;
-    detalles.textContent = `${articulo.tipo} · ${articulo.genero} · ${articulo.fechaLanzamiento} · ${articulo.duracion} min`;
+    fecha.classList.add("fecha");
+    fecha.textContent = fechaLegible(articulo.fechaLanzamiento);
+
+    tituloElemento.textContent = articulo.titulo;
+    detalles.textContent = `${articulo.tipo} · ${articulo.genero} · ${articulo.duracion} min`;
     sinopsis.textContent = articulo.sinopsis;
-    ficha.append(titulo, detalles, sinopsis);
+
+    if (diasDesde(articulo.fechaLanzamiento) <= DIAS_RECIENTE) {
+      ficha.classList.add("reciente");
+    }
+
+    ficha.append(tituloElemento, detalles, sinopsis, fecha);
     catalogo.append(ficha);
   }
 }
 
 function actualizar() {
   const encontrados = buscarPorTexto(articulos, textoBuscado);
-  pintar(ordenar(encontrados, criterio));
+  pintar(ordenar(encontrados, titulo));
 }
 
 function buscar() {
@@ -284,13 +313,8 @@ function buscar() {
 }
 
 document.querySelector("#buscador").addEventListener("input", buscar);
-document.querySelector("#ordenNombre").addEventListener("click", () => {
-  criterio = "titulo";
-  actualizar();
-});
-document.querySelector("#ordenNumero").addEventListener("click", () => {
-  criterio = "duracion";
-  actualizar();
-});
+document.querySelector("#ordenNombre").addEventListener("click", () => { titulo = "titulo"; actualizar(); });
+document.querySelector("#ordenNumero").addEventListener("click", () => {  titulo = "duracion"; actualizar(); });
+document.querySelector("#ordenFecha").addEventListener("click", () => { titulo = "fecha"; actualizar(); });
 
 actualizar();
