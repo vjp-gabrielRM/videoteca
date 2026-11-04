@@ -320,4 +320,5 @@ document.querySelector("#ordenNombre").addEventListener("click", () => { titulo 
 document.querySelector("#ordenNumero").addEventListener("click", () => {  titulo = "duracion"; actualizar(); });
 document.querySelector("#ordenFecha").addEventListener("click", () => { titulo = "fecha"; actualizar(); });
 
-actualizar();
+actualizar()
+}
