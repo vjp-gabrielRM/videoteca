@@ -345,3 +345,34 @@ if (ordenGuardado === "titulo" || ordenGuardado === "duracion" || ordenGuardado 
     titulo = ordenGuardado;
 }
 actualizar();
+
+// Requisito final del sprint 1: alta de elementos con un campo validado por regex.
+// Empieza por mayúscula y tiene entre 3 y 60 caracteres (letras, números y espacios).
+const PATRON_TITULO = /^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÑáéíóúñü0-9 ]{2,59}$/;
+
+document.querySelector("#formAnadir").addEventListener("submit", (evento) => {
+    evento.preventDefault();
+
+    const nuevoTitulo = document.querySelector("#nuevoTitulo").value.trim();
+    const aviso = document.querySelector("#avisoTitulo");
+
+    if (!PATRON_TITULO.test(nuevoTitulo)) {
+        aviso.textContent = "✘ Título no válido: empieza en mayúscula, de 3 a 60 caracteres, sin símbolos";
+        aviso.style.color = "red";
+        return;
+    }
+
+    aviso.textContent = "";
+
+    anadir(articulos, {
+        titulo: nuevoTitulo,
+        genero: document.querySelector("#nuevoGenero").value,
+        fechaLanzamiento: document.querySelector("#nuevaFecha").value,
+        sinopsis: document.querySelector("#nuevaSinopsis").value,
+        tipo: document.querySelector("#nuevoTipo").value,
+        duracion: Number(document.querySelector("#nuevaDuracion").value),
+    });
+
+    actualizar();
+    evento.target.reset();
+});

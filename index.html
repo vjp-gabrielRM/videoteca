@@ -16,8 +16,28 @@
         <input id="buscador" type="search" placeholder="Buscar">
         <button id="ordenNombre">Ordenar A-Z</button>
         <button id="ordenNumero">Ordenar por tiempo</button>
-        <button id="ordenFecha">Ordenar por fecha</button>
+        <button id="ordenFecha">Más reciente primero</button>
     </section>
+
+    <form id="formAnadir">
+        <h2>Añadir elemento</h2>
+        <p>
+            <input id="nuevoTitulo" placeholder="Título (empieza en mayúscula)">
+            <span id="avisoTitulo" role="alert"></span>
+        </p>
+        <p><input id="nuevoGenero" placeholder="Género" required></p>
+        <p><input id="nuevaFecha" type="date" required></p>
+        <p><input id="nuevaSinopsis" placeholder="Sinopsis" required></p>
+        <p>
+            <select id="nuevoTipo">
+                <option>Película</option>
+                <option>Serie</option>
+            </select>
+        </p>
+        <p><input id="nuevaDuracion" type="number" min="1" placeholder="Duración (min)" required></p>
+        <button type="submit">Añadir</button>
+    </form>
+
     <section id="catalogo" aria-live="polite"></section>
 </body>
 
