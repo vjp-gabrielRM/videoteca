@@ -242,6 +242,7 @@ estadisticas([]);
 
 let textoBuscado = "";
 let titulo = "titulo";
+let titulo = "titulo";
 
 function crearFecha(texto) {
   return new Date(texto + "T00:00");
@@ -264,6 +265,7 @@ function diasDesde(texto) {
 function ordenar(lista, titulo) {
   const copia = [...lista];
 
+  if (titulo === "duracion") {
   if (titulo === "duracion") {
     copia.sort((a, b) => a.duracion - b.duracion);
   } else if (titulo === "fecha") {
@@ -304,6 +306,7 @@ function pintar(lista) {
 
 function actualizar() {
   const encontrados = buscarPorTexto(articulos, textoBuscado);
+  pintar(ordenar(encontrados, titulo));
   pintar(ordenar(encontrados, titulo));
 }
 
