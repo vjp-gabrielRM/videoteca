@@ -28,3 +28,8 @@ funciones también se pueden llamar desde esa consola.
 Grupo 4: Gabriel Ruz Macias y Daniel Iglesias Ramos.
 
 La tarea de teclear se ha ido alternando cada día siendo el primero en hacerlo Daniel, el que no tecleaba se dedicaba a ayudar a pensar el código y a buscar fallos en y corregirlos en el mismo, de ahí los commits de los dos en el mismo día en algunas ocasiones, además de repartir el trabajo de finalizar el sprint 0 hoy, Daniel se ha ocupado del código y Gabriel de retocar el README.
+
+# Qué se ha hecho en el Sprint 1
+Se mostró el catálogo en la página con títulos, detalles, sinopsis y fechas.
+Se añadieron la búsqueda y la ordenación por título, duración y fecha.
+Se guarda el orden elegido en una cookie y se marcan los elementos recientes.

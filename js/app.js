@@ -242,6 +242,7 @@ estadisticas([]);
 
 let textoBuscado = "";
 let titulo = "titulo";
+let dias= 30;
 
 function guardarCookie(nombre, valor, dias) {
     const segundos = dias * 24 * 60 * 60;
