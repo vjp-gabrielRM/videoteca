@@ -320,12 +320,12 @@ document.querySelector("#formAnadir").addEventListener("submit", (evento) => {
     const aviso = document.querySelector("#avisoTitulo");
 
     if (!PATRON_TITULO.test(nuevoTitulo)) {
-        aviso.textContent = "✘ Título no válido: empieza en mayúscula, de 3 a 60 caracteres, sin símbolos";
+        aviso.textContent = "Título no válido: empieza en mayúscula, de 3 a 60 caracteres, sin símbolos";
         aviso.style.color = "red";
         return;
     }
 
-    aviso.textContent = "";
+
 
     anadir(articulos, {
         titulo: nuevoTitulo,
@@ -337,7 +337,7 @@ document.querySelector("#formAnadir").addEventListener("submit", (evento) => {
     });
 
     actualizar();
-    evento.target.reset();
+  
 });
 
 //Sprint 2

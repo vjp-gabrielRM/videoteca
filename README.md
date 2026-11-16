@@ -2,9 +2,9 @@
 
 ## Qué hace la aplicación
 
-Mantiene un catálogo de películas y series. Muestra los datos en la consola del
-navegador y permite listar, buscar, añadir y eliminar elementos, filtrar por año,
-contar por tipo y consultar estadísticas de duración.
+Mantiene un catálogo de películas y series. La página muestra sus tarjetas y
+estadísticas, y permite buscar, ordenar y añadir elementos. El orden elegido se
+guarda en una cookie.
 
 ## Trabajo en pareja
 
@@ -25,9 +25,9 @@ sinopsis, tipo y duración en minutos. El catálogo contiene ocho elementos
 
 ## Cómo se ejecuta
 
-Abre `index.html` en un navegador. La página muestra el catálogo, sus
-estadísticas y el resultado de la búsqueda. Las funciones del proyecto también
-se pueden consultar desde la consola del navegador.
+Abre `index.html` con Live Server en VS Code; no lo abras con doble clic porque
+la aplicación usa módulos de JavaScript. La página muestra el catálogo y sus
+estadísticas, y permite buscar, ordenar y añadir elementos.
 
 
 # Qué se ha hecho en el Sprint 1

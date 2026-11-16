@@ -8,7 +8,7 @@ import {
   ordenar,
 } from "./logica.js";
 
-const DIAS_RECIENTE = 30;
+
 const PATRON_TITULO = /^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÑáéíóúñü0-9 ]{2,59}$/;
 
 let textoBuscado = "";
@@ -50,7 +50,7 @@ function pintar(lista) {
     sinopsis.textContent = articulo.sinopsis;
 
     const diasTranscurridos = diasDesde(articulo.fechaLanzamiento);
-    if (diasTranscurridos >= 0 && diasTranscurridos <= DIAS_RECIENTE) {
+    if (diasTranscurridos >= 0 && diasTranscurridos <= dias) {
       ficha.classList.add("reciente");
     }
 
@@ -85,8 +85,7 @@ function pintarEstadisticas(lista) {
 }
 
 function pintarResumen(encontrados) {
-  document.querySelector("#contador").textContent =
-    `Mostrando ${encontrados.length} de ${articulos.length}`;
+
   document.querySelector("#sinResultados").hidden = encontrados.length > 0;
 }
 
@@ -144,5 +143,5 @@ document.querySelector("#formAnadir").addEventListener("submit", (evento) => {
   });
 
   actualizar();
-  evento.target.reset();
+
 });
