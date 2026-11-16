@@ -3,84 +3,6 @@ const AÑO = 2010;
 const AÑO_FILTRO_2015 = 2015;
 const DIAS_RECIENTE = 30; // Añadido para el Reto 2
 
-// Catálogo inicial de películas y series.
-const articulos = [
-  {
-    id: 1,
-    titulo: "La ultima estación",
-    genero: "Drama",
-    fechaLanzamiento: "2023-03-17",
-    sinopsis: "Una restauradora vuelve a su pueblo para recuperar el antiguo cine familiar.",
-    tipo: "Película",
-    duracion: 112,
-  },
-  {
-    id: 2,
-    titulo: "Codigo Boreal",
-    genero: "Ciencia ficción",
-    fechaLanzamiento: "2021-09-08",
-    sinopsis: "La tripulación de una estación polar investiga una señal que llega bajo el hielo.",
-    tipo: "Serie",
-    duracion: 48,
-  },
-  {
-    id: 3,
-    titulo: "Dias de papel",
-    genero: "Comedia",
-    fechaLanzamiento: "2008-05-22",
-    sinopsis: "Dos amigos intentan salvar la pequeña librería en la que crecieron.",
-    tipo: "Película",
-    duracion: 96,
-  },
-  {
-    id: 4,
-    titulo: "Puerto de niebla",
-    genero: "Misterio",
-    fechaLanzamiento: "2019-11-14",
-    sinopsis: "Una inspectora investiga la desaparición de un barco en una ciudad costera.",
-    tipo: "Serie",
-    duracion: 52,
-  },
-  {
-    id: 5,
-    titulo: "Kilometro cero",
-    genero: "Aventura",
-    fechaLanzamiento: "2004-07-02",
-    sinopsis: "Tres hermanos emprenden un viaje por carretera para cumplir una promesa familiar.",
-    tipo: "Película",
-    duracion: 105,
-  },
-  {
-    id: 6,
-    titulo: "Turno de noche",
-    genero: "Drama",
-    fechaLanzamiento: "2022-01-28",
-    sinopsis: "El personal de urgencias de un hospital afronta nuevos retos en cada turno.",
-    tipo: "Serie",
-    duracion: 45,
-  },
-  {
-    id: 7,
-    titulo: "El jardín sumergido",
-    genero: "Fantasía",
-    fechaLanzamiento: "2012-10-19",
-    sinopsis: "Una joven descubre un jardín oculto que solo aparece cuando sube la marea.",
-    tipo: "Película",
-    duracion: 118,
-  },
-  {
-    id: 8,
-    titulo: "Mapa de estrellas",
-    genero: "Aventura",
-    fechaLanzamiento: "2007-02-06",
-    sinopsis: "Un grupo de estudiantes sigue un mapa antiguo hasta un observatorio abandonado.",
-    tipo: "Serie",
-    duracion: 50,
-  },
-];
-
-console.log(`${NOMBRE_APP}: ${articulos.length} elementos cargados`);
-console.table(articulos);
 
 // Muestra cada título e indica si es reciente o clásico.
 function listarTodos(articulos) {
@@ -214,10 +136,9 @@ console.log(eliminarPorId(articulosPrueba, 3));
 listar(articulosPrueba);
 
 // Calcula la duración total, la media y el elemento más largo.
-function estadisticas(lista) {
+function obtenerEstadisticas(lista) {
   if (lista.length === 0) {
-    console.warn("No hay elementos en la videoteca");
-    return;
+    return null;
   }
   let totalMinutos = 0;
   let masLarga = lista[0];
@@ -227,10 +148,22 @@ function estadisticas(lista) {
       masLarga = articulo;
     }
   }
-  const mediaMinutos = totalMinutos / lista.length;
-  console.log(`Total: ${totalMinutos} min`);
-  console.log(`Media: ${mediaMinutos.toFixed(1)} min`);
-  console.log(`Más larga: ${masLarga.titulo} (${masLarga.duracion} min)`);
+  return {
+    totalMinutos,
+    mediaMinutos: totalMinutos / lista.length,
+    masLarga,
+  };
+}
+
+function estadisticas(lista) {
+  const resumen = obtenerEstadisticas(lista);
+  if (!resumen) {
+    console.warn("No hay elementos en la videoteca");
+    return;
+  }
+  console.log(`Total: ${resumen.totalMinutos} min`);
+  console.log(`Media: ${resumen.mediaMinutos.toFixed(1)} min`);
+  console.log(`Más larga: ${resumen.masLarga.titulo} (${resumen.masLarga.duracion} min)`);
 }
 
 // Ejemplos de estadísticas con elementos y con una lista vacía.
@@ -241,7 +174,7 @@ estadisticas([]);
 // Sprint 1
 
 let textoBuscado = "";
-let titulo = "titulo";
+let criterio = "titulo";
 let dias= 30;
 
 function guardarCookie(nombre, valor, dias) {
@@ -279,12 +212,12 @@ function diasDesde(texto) {
     return Math.floor(ms / MS_DIA);
 }
 
-function ordenar(lista, titulo) {
+function ordenar(lista, criterio) {
     const copia = [...lista];
 
-    if (titulo === "duracion") {
+    if (criterio === "duracion") {
         copia.sort((a, b) => a.duracion - b.duracion);
-    } else if (titulo === "fecha") {
+    } else if (criterio === "fecha") {
         copia.sort((a, b) => crearFecha(b.fechaLanzamiento) - crearFecha(a.fechaLanzamiento));
     } else {
         copia.sort((a, b) => a.titulo.localeCompare(b.titulo, "es"));
@@ -320,9 +253,38 @@ function pintar(lista) {
     }
 }
 
+function pintarEstadisticas(lista) {
+    const contenedor = document.querySelector("#estadisticas");
+    const resumen = obtenerEstadisticas(lista);
+    contenedor.replaceChildren();
+
+    const encabezado = document.createElement("h2");
+    encabezado.textContent = "Estadísticas";
+    contenedor.append(encabezado);
+
+    if (!resumen) {
+        const mensaje = document.createElement("p");
+        mensaje.textContent = "No hay elementos en la videoteca.";
+        contenedor.append(mensaje);
+        return;
+    }
+
+    const total = document.createElement("p");
+    total.textContent = `Duración total: ${resumen.totalMinutos} min`;
+    const media = document.createElement("p");
+    media.textContent = `Duración media: ${resumen.mediaMinutos.toFixed(1)} min`;
+    const masLarga = document.createElement("p");
+    masLarga.textContent = `Más larga: ${resumen.masLarga.titulo} (${resumen.masLarga.duracion} min)`;
+    contenedor.append(total, media, masLarga);
+}
+
 function actualizar() {
     const encontrados = buscarPorTexto(articulos, textoBuscado);
-    pintar(ordenar(encontrados, titulo));
+    const contador = document.querySelector("#contador");
+    contador.textContent = `Mostrando ${encontrados.length} de ${articulos.length}`;
+    document.querySelector("#sinResultados").hidden = encontrados.length > 0;
+    pintar(ordenar(encontrados, criterio));
+    pintarEstadisticas(articulos);
 }
 
 function buscar() {
@@ -331,8 +293,8 @@ function buscar() {
 }
 
 function elegirOrden(nuevo) {
-    titulo = nuevo;
-    guardarCookie("orden", titulo, 30);
+    criterio = nuevo;
+    guardarCookie("orden", criterio, dias);
     actualizar();
 }
 
@@ -343,7 +305,7 @@ document.querySelector("#ordenFecha").addEventListener("click", () => elegirOrde
 
 const ordenGuardado = leerCookie("orden");
 if (ordenGuardado === "titulo" || ordenGuardado === "duracion" || ordenGuardado === "fecha") {
-    titulo = ordenGuardado;
+    criterio = ordenGuardado;
 }
 actualizar();
 
@@ -377,3 +339,7 @@ document.querySelector("#formAnadir").addEventListener("submit", (evento) => {
     actualizar();
     evento.target.reset();
 });
+
+//Sprint 2
+
+

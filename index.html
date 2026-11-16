@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Videoteca</title>
-    <script src="js/app.js" defer></script>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 
 <body>
@@ -13,7 +13,8 @@
     <h1>Videoteca</h1>
 
     <section class="controles">
-        <input id="buscador" type="search" placeholder="Buscar">
+        <label for="buscador">Buscar:</label>
+        <input id="buscador" type="search">
         <button id="ordenNombre">Ordenar A-Z</button>
         <button id="ordenNumero">Ordenar por tiempo</button>
         <button id="ordenFecha">Más reciente primero</button>
@@ -22,23 +23,34 @@
     <form id="formAnadir">
         <h2>Añadir elemento</h2>
         <p>
-            <input id="nuevoTitulo" placeholder="Título (empieza en mayúscula)">
+            <label for="nuevoTitulo">Título:</label>
+            <input id="nuevoTitulo" placeholder="Empieza en mayúscula">
             <span id="avisoTitulo" role="alert"></span>
         </p>
-        <p><input id="nuevoGenero" placeholder="Género" required></p>
-        <p><input id="nuevaFecha" type="date" required></p>
-        <p><input id="nuevaSinopsis" placeholder="Sinopsis" required></p>
+        <p><label for="nuevoGenero">Género:</label> <input id="nuevoGenero" required></p>
+        <p><label for="nuevaFecha">Fecha:</label> <input id="nuevaFecha" type="date" required></p>
+        <p><label for="nuevaSinopsis">Sinopsis:</label> <input id="nuevaSinopsis" required></p>
         <p>
+            <label for="nuevoTipo">Tipo:</label>
             <select id="nuevoTipo">
                 <option>Película</option>
                 <option>Serie</option>
             </select>
         </p>
-        <p><input id="nuevaDuracion" type="number" min="1" placeholder="Duración (min)" required></p>
+        <p>
+            <label for="nuevaDuracion">Duración (min):</label>
+            <input id="nuevaDuracion" type="number" min="1" required>
+        </p>
         <button type="submit">Añadir</button>
     </form>
 
-    <section id="catalogo" aria-live="polite"></section>
+    <h2>Catálogo</h2>
+    <p id="contador"></p>
+    <p id="sinResultados" hidden>No se encontraron elementos.</p>
+    <section id="estadisticas"></section>
+    <section id="catalogo"></section>
+
+    <script type="module" src="js/interfaz.js"></script>
 </body>
 
 </html>

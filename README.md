@@ -6,6 +6,11 @@ Mantiene un catálogo de películas y series. Muestra los datos en la consola de
 navegador y permite listar, buscar, añadir y eliminar elementos, filtrar por año,
 contar por tipo y consultar estadísticas de duración.
 
+## Trabajo en pareja
+
+Grupo 4: Gabriel Ruz Macias y Daniel Iglesias Ramos.
+
+
 ## Datos de cada elemento
 
 Cada elemento tiene un ID y seis campos: título, género, fecha de lanzamiento,
@@ -20,16 +25,19 @@ sinopsis, tipo y duración en minutos. El catálogo contiene ocho elementos
 
 ## Cómo se ejecuta
 
-Abre index.html en un navegador y consulta la consola del navegador. Las
-funciones también se pueden llamar desde esa consola.
+Abre `index.html` en un navegador. La página muestra el catálogo, sus
+estadísticas y el resultado de la búsqueda. Las funciones del proyecto también
+se pueden consultar desde la consola del navegador.
 
-## Trabajo en pareja
-
-Grupo 4: Gabriel Ruz Macias y Daniel Iglesias Ramos.
-
-La tarea de teclear se ha ido alternando cada día siendo el primero en hacerlo Daniel, el que no tecleaba se dedicaba a ayudar a pensar el código y a buscar fallos en y corregirlos en el mismo, de ahí los commits de los dos en el mismo día en algunas ocasiones, además de repartir el trabajo de finalizar el sprint 0 hoy, Daniel se ha ocupado del código y Gabriel de retocar el README.
 
 # Qué se ha hecho en el Sprint 1
 Se mostró el catálogo en la página con títulos, detalles, sinopsis y fechas.
 Se añadieron la búsqueda y la ordenación por título, duración y fecha.
 Se guarda el orden elegido en una cookie y se marcan los elementos recientes.
+
+# Qué se ha hecho en el Sprint 2
+
+
+## Uso de IA
+Se utilizó IA  como apoyo para revisar los requisitos del Sprint 0,1,2,
+implementar y comprobar sintasis , revisó e aviso de los cambios que deberiamos de hacer.
