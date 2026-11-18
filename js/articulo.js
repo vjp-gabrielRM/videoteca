@@ -33,8 +33,24 @@ export class Articulo {
     return `${horas} h ${mins} min`;
   }
 
+  // Indica si el artículo es largo según su tipo y duración.
+  esLarga() {
+    const tipo = this.tipo.toLowerCase();
+
+    if (tipo === "pelicula" || tipo === "película") {
+      return this._duracion > 60;
+    }
+
+    if (tipo === "serie") {
+      return this._duracion > 60;
+    }
+
+    return false;
+  }
+
   // Combina los datos principales del artículo en una descripción.
   descripcion() {
-    return `${this.tipo} (${this.genero}) • ${this.duracionTexto} — ${this.sinopsis}`;
+    const estado = this.esLarga() ? "larga" : "no larga";
+    return `${this.tipo} (${this.genero}) • ${this.duracionTexto} • ${estado} — ${this.sinopsis} `;
   }
 }
