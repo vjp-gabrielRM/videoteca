@@ -20,12 +20,14 @@ let textoBuscado = "";
 let criterio = "titulo";
 const dias = 30;
 
+// Guarda una cookie con una duración expresada en días.
 function guardarCookie(nombre, valor, dias) {
   const segundos = dias * 24 * 60 * 60;
   const texto = encodeURIComponent(valor);
   document.cookie = `${nombre}=${texto}; max-age=${segundos}; path=/`;
 }
 
+// Busca una cookie por nombre y devuelve su valor, o null si no existe.
 function leerCookie(nombre) {
   const partes = document.cookie.split("; ");
   for (const parte of partes) {
@@ -37,6 +39,7 @@ function leerCookie(nombre) {
   return null;
 }
 
+// Dibuja en el catálogo las fichas de los artículos recibidos.
 function pintar(lista) {
   const catalogo = document.querySelector("#catalogo");
   catalogo.replaceChildren();
@@ -62,6 +65,7 @@ function pintar(lista) {
   }
 }
 
+// Muestra el total, la media y el artículo de mayor duración.
 function pintarEstadisticas(lista) {
   const contenedor = document.querySelector("#estadisticas");
   const resumen = obtenerEstadisticas(lista);
@@ -87,10 +91,12 @@ function pintarEstadisticas(lista) {
   contenedor.append(total, media, masLarga);
 }
 
+// Oculta el aviso cuando hay resultados y lo muestra cuando no los hay.
 function pintarResumen(encontrados) {
   document.querySelector("#sinResultados").hidden = encontrados.length > 0;
 }
 
+// Busca, ordena y actualiza las distintas partes de la página.
 function actualizar() {
   const encontrados = buscarPorTexto(articulos, textoBuscado);
   pintarResumen(encontrados);
@@ -98,11 +104,13 @@ function actualizar() {
   pintarEstadisticas(articulos);
 }
 
+// Lee el texto del buscador y actualiza los resultados.
 function buscar() {
   textoBuscado = document.querySelector("#buscador").value;
   actualizar();
 }
 
+// Cambia el orden elegido, lo recuerda en una cookie y actualiza la página.
 function elegirOrden(nuevo) {
   criterio = nuevo;
   guardarCookie("orden", criterio, dias);
@@ -110,8 +118,11 @@ function elegirOrden(nuevo) {
 }
 
 document.querySelector("#buscador").addEventListener("input", buscar);
+// Selecciona el orden alfabético al pulsar el botón correspondiente.
 document.querySelector("#ordenNombre").addEventListener("click", () => elegirOrden("titulo"));
+// Selecciona el orden por duración al pulsar el botón correspondiente.
 document.querySelector("#ordenNumero").addEventListener("click", () => elegirOrden("duracion"));
+// Selecciona el orden por fecha al pulsar el botón correspondiente.
 document.querySelector("#ordenFecha").addEventListener("click", () => elegirOrden("fecha"));
 
 const ordenGuardado = leerCookie("orden");
@@ -120,6 +131,7 @@ if (ordenGuardado === "titulo" || ordenGuardado === "duracion" || ordenGuardado 
 }
 actualizar();
 
+// Valida el formulario y añade un nuevo artículo al catálogo.
 document.querySelector("#formAnadir").addEventListener("submit", (evento) => {
   evento.preventDefault();
 
