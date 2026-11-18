@@ -1,4 +1,5 @@
-import { articulos } from "./datos.js";
+import { datosArticulos } from "./datos.js";
+import { Articulo } from "./articulo.js";
 import {
   anadir,
   buscarPorTexto,
@@ -8,6 +9,10 @@ import {
   ordenar,
 } from "./logica.js";
 
+const articulos = [];
+for (const datos of datosArticulos) {
+  articulos.push(new Articulo(datos));
+}
 
 const PATRON_TITULO = /^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÑáéíóúñü0-9 ]{2,59}$/;
 
@@ -40,21 +45,19 @@ function pintar(lista) {
     const ficha = document.createElement("article");
     const tituloElemento = document.createElement("h2");
     const detalles = document.createElement("p");
-    const sinopsis = document.createElement("p");
     const fecha = document.createElement("p");
 
     fecha.classList.add("fecha");
     fecha.textContent = fechaLegible(articulo.fechaLanzamiento);
     tituloElemento.textContent = articulo.titulo;
-    detalles.textContent = `${articulo.tipo} · ${articulo.genero} · ${articulo.duracion} min`;
-    sinopsis.textContent = articulo.sinopsis;
+    detalles.textContent = articulo.descripcion();
 
     const diasTranscurridos = diasDesde(articulo.fechaLanzamiento);
     if (diasTranscurridos >= 0 && diasTranscurridos <= dias) {
       ficha.classList.add("reciente");
     }
 
-    ficha.append(tituloElemento, detalles, sinopsis, fecha);
+    ficha.append(tituloElemento, detalles, fecha);
     catalogo.append(ficha);
   }
 }
@@ -85,7 +88,6 @@ function pintarEstadisticas(lista) {
 }
 
 function pintarResumen(encontrados) {
-
   document.querySelector("#sinResultados").hidden = encontrados.length > 0;
 }
 
@@ -122,6 +124,7 @@ document.querySelector("#formAnadir").addEventListener("submit", (evento) => {
   evento.preventDefault();
 
   const nuevoTitulo = document.querySelector("#nuevoTitulo").value.trim();
+  const nuevaDuracion = Number(document.querySelector("#nuevaDuracion").value);
   const aviso = document.querySelector("#avisoTitulo");
 
   if (!PATRON_TITULO.test(nuevoTitulo)) {
@@ -131,17 +134,26 @@ document.querySelector("#formAnadir").addEventListener("submit", (evento) => {
     return;
   }
 
+  if (Number.isNaN(nuevaDuracion) || nuevaDuracion <= 0) {
+    aviso.textContent = "La duración debe ser un número mayor que 0";
+    aviso.style.color = "red";
+    return;
+  }
+
   aviso.textContent = "";
 
-  anadir(articulos, {
-    titulo: nuevoTitulo,
-    genero: document.querySelector("#nuevoGenero").value,
-    fechaLanzamiento: document.querySelector("#nuevaFecha").value,
-    sinopsis: document.querySelector("#nuevaSinopsis").value,
-    tipo: document.querySelector("#nuevoTipo").value,
-    duracion: Number(document.querySelector("#nuevaDuracion").value),
-  });
+  anadir(
+    articulos,
+    new Articulo({
+      titulo: nuevoTitulo,
+      genero: document.querySelector("#nuevoGenero").value,
+      fechaLanzamiento: document.querySelector("#nuevaFecha").value,
+      sinopsis: document.querySelector("#nuevaSinopsis").value,
+      tipo: document.querySelector("#nuevoTipo").value,
+      duracion: nuevaDuracion,
+    })
+  );
 
   actualizar();
-
 });
+

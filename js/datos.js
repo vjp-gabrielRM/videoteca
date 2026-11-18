@@ -1,5 +1,5 @@
 // Catálogo inicial de películas y series.
-export const articulos = [
+export const datosArticulos = [
   {
     id: 1,
     titulo: "La ultima estación",
