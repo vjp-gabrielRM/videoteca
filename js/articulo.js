@@ -1,4 +1,5 @@
-export class Articulo {
+export 
+class Articulo {
   // Crea un artículo con los datos recibidos y valida su duración.
   constructor(datos) {
     this.id = datos.id;
