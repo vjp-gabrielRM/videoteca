@@ -9,14 +9,16 @@ import { anadir as anadirALista, buscarPorTexto } from "./logica.js";
 export class Articulo {
   /**
    * Crea un artículo audiovisual.
-   * @param {number|string} id Identificador único del artículo.
+   * @param {string} id Identificador único del artículo.
    * @param {string} titulo Título del artículo.
    * @param {string} genero Género al que pertenece.
    * @param {string} fechaLanzamiento Fecha de lanzamiento.
    * @param {string} sinopsis Resumen del artículo.
    * @param {string} tipo Tipo de contenido.
-   * @param {number|string} duracion Duración del artículo.
+   * @param {string} duracion Duración del artículo.
    */
+
+
   constructor(id, titulo, genero, fechaLanzamiento, sinopsis, tipo, duracion) {
     this.id = id;
     this.titulo = titulo;
@@ -35,9 +37,10 @@ export class Videoteca {
   
   /**
    * Construye una videoteca a partir de objetos de datos.
-   * @param {Array<Object>} datos Objetos con los datos de los artículos.
+   * @param {Array} datos Objetos con los datos de los artículos.
    * @returns {Videoteca} Videoteca con artículos instanciados.
    */
+ 
   static desdeDatos(datos) {
     // Transforma cada objeto plano del array en una instancia de Articulo.
     const instancias = datos.map(
