@@ -1,4 +1,4 @@
-
+//holoii
 
 // Importa las funciones de lógica y renombra "anadir" como "anadirALista".
 import { anadir as anadirALista, buscarPorTexto } from "./logica.js";
