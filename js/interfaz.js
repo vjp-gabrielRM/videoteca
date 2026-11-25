@@ -5,7 +5,7 @@ import {
   buscarPorTexto,
   diasDesde,
   fechaLegible,
-  obtenerEstadisticas,
+  Gestora,
   ordenar,
 } from "./logica.js";
 
@@ -13,6 +13,9 @@ const articulos = [];
 for (const datos of datosArticulos) {
   articulos.push(new Articulo(datos));
 }
+
+// La gestora conserva la referencia al array y calcula sus estadísticas.
+const gestora = new Gestora(articulos);
 
 const PATRON_TITULO = /^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÑáéíóúñü0-9 ]{2,59}$/;
 
@@ -65,30 +68,32 @@ function pintar(lista) {
   }
 }
 
-// Muestra el total, la media y el artículo de mayor duración.
-function pintarEstadisticas(lista) {
-  const contenedor = document.querySelector("#estadisticas");
-  const resumen = obtenerEstadisticas(lista);
-  contenedor.replaceChildren();
+// Pinta las estadísticas devueltas por el método de la clase gestora.
+function pintarEstadisticas() {
+  const panel = document.querySelector("#estadisticas");
+  const resumen = gestora.estadisticas();
+  panel.replaceChildren();
 
-  const encabezado = document.createElement("h2");
-  encabezado.textContent = "Estadísticas";
-  contenedor.append(encabezado);
-
-  if (!resumen) {
-    const mensaje = document.createElement("p");
-    mensaje.textContent = "No hay elementos en la videoteca.";
-    contenedor.append(mensaje);
+  if (resumen === null) {
+    const aviso = document.createElement("li");
+    aviso.textContent = "No hay elementos en la videoteca.";
+    panel.append(aviso);
     return;
   }
 
-  const total = document.createElement("p");
-  total.textContent = `Duración total: ${resumen.totalMinutos} min`;
-  const media = document.createElement("p");
-  media.textContent = `Duración media: ${resumen.mediaMinutos.toFixed(1)} min`;
-  const masLarga = document.createElement("p");
-  masLarga.textContent = `Más larga: ${resumen.masLarga.titulo} (${resumen.masLarga.duracion} min)`;
-  contenedor.append(total, media, masLarga);
+  const lineas = [
+    `Duración total: ${resumen.totalMinutos} min`,
+    `Duración media: ${resumen.mediaMinutos.toFixed(1)} min`,
+    `Más larga: ${resumen.masLarga.titulo} (${resumen.masLarga.duracion} min)`,
+    `Películas: ${resumen.peliculas}`,
+    `Títulos: ${resumen.titulos.join(", ")}`,
+  ];
+
+  lineas.forEach((linea) => {
+    const elemento = document.createElement("li");
+    elemento.textContent = linea;
+    panel.append(elemento);
+  });
 }
 
 // Oculta el aviso cuando hay resultados y lo muestra cuando no los hay.
@@ -101,7 +106,7 @@ function actualizar() {
   const encontrados = buscarPorTexto(articulos, textoBuscado);
   pintarResumen(encontrados);
   pintar(ordenar(encontrados, criterio));
-  pintarEstadisticas(articulos);
+  pintarEstadisticas();
 }
 
 // Lee el texto del buscador y actualiza los resultados.

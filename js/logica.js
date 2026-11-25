@@ -76,3 +76,39 @@ export function ordenar(lista, criterio) {
 
   return copia;
 }
+
+// Clase gestora de la colección de artículos de la videoteca.
+export class Gestora {
+  constructor(lista = []) {
+    this.lista = lista;
+  }
+
+  // Calcula las estadísticas de la colección usando únicamente métodos de array.
+  estadisticas() {
+    if (this.lista.length === 0) {
+      return null;
+    }
+
+    const totalMinutos = this.lista.reduce(
+      (suma, articulo) => suma + articulo.duracion,
+      0
+    );
+    const peliculas = this.lista.filter(
+      (articulo) => articulo.tipo === "Película"
+    ).length;
+    const masLarga = this.lista.reduce(
+      (mayor, articulo) =>
+        articulo.duracion > mayor.duracion ? articulo : mayor,
+      this.lista[0]
+    );
+    const titulos = this.lista.map((articulo) => articulo.titulo);
+
+    return {
+      totalMinutos,
+      mediaMinutos: totalMinutos / this.lista.length,
+      masLarga,
+      peliculas,
+      titulos,
+    };
+  }
+}

@@ -1,16 +1,17 @@
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0 2rem;
 }
 
-#listado {
+#catalogo {
     display: grid;
     gap: 1rem;
     grid-template-columns:
         repeat(auto-fill, minmax(220px, 1fr));
 }
 
-.tarjeta {
+#catalogo article {
     background: white;
     padding: 1rem;
     border-radius: 8px;
@@ -18,8 +19,26 @@ body {
 }
 
 #estadisticas {
-background-color: lightgrey;
-border-radius: 15%;
-padding: 1px 20px 7px 20px;
-width: max-content;
+    background-color: lightgrey;
+    border-radius: 15%;
+    padding: 1px 20px 7px 20px;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Panel de estadísticas del Sprint 2. */
+.panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    list-style: none;
+    padding: 0;
+}
+
+.panel li {
+    background-color: lightgrey;
+    border-radius: 8px;
+    padding: .75rem 1rem;
 }
