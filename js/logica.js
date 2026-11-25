@@ -1,20 +1,23 @@
 // Devuelve los artículos cuyo título contiene el texto buscado.
 export function buscarPorTexto(lista, texto) {
   const buscado = texto.toLowerCase();
-  // Comprueba cada título sin distinguir entre mayúsculas y minúsculas.
-  return lista.filter((elemento) => elemento.titulo.toLowerCase().includes(buscado));
+
+  // Antes: bucle for...of, if y push.
+  return lista.filter((elemento) =>
+    elemento.titulo.toLowerCase().includes(buscado)
+  );
 }
 
 // Asigna un identificador consecutivo y añade el artículo a la lista.
-export function anadir(lista, elemento) {
-  let id = 0;
-  for (const articulo of lista) {
-    if (articulo.id > id) {
-      id = articulo.id;
-    }
-  }
+export function anadir(articulos, elemento) {
+  // Antes: bucle for...of para encontrar el ID mayor.
+  const id = articulos.reduce(
+    (max, articulo) => Math.max(max, articulo.id),
+    0
+  );
+
   elemento.id = id + 1;
-  lista.push(elemento);
+  articulos.push(elemento);
   return elemento.id;
 }
 
