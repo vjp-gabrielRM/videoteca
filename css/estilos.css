@@ -19,9 +19,9 @@ body {
 }
 
 #estadisticas {
-    background-color: lightgrey;
-    border-radius: 15%;
-    padding: 1px 20px 7px 20px;
+    background-color: lightgray;
+    border-radius: 2.5% / 7.5%;
+    padding: 10px 20px 10px 20px;
     width: max-content;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,8 @@ body {
 }
 
 .panel li {
-    background-color: lightgrey;
-    border-radius: 8px;
+    background-color: white;
+    border: 3px solid lightskyblue;
+    border-radius: 16px;
     padding: .75rem 1rem;
 }
